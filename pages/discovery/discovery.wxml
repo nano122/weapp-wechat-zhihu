@@ -53,12 +53,9 @@
     </block>
   </view>
   <view class="ctnt1 placehold" hidden="{{currentNavtab==1 ? '' : true}}">
-    <text>圆桌</text>
-  </view>
-  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <text>热门</text>
   </view>
-  <view class="ctnt3 placehold" hidden="{{currentNavtab==3 ? '' : true}}">
+  <view class="ctnt2 placehold" hidden="{{currentNavtab==2 ? '' : true}}">
     <text>收藏</text>
   </view>
 </scroll-view>
