@@ -1,6 +1,14 @@
 # 项目概览
 
 ## 最近更改
+- **后端实现** (2024-12-07): 完成Node.js后端开发
+  - ✅ Express + Sequelize + SQLite3 技术栈
+  - ✅ 13个数据模型，完整实现ORM映射和关联关系
+  - ✅ 4个核心控制器：认证、问题、回答、发现/用户中心
+  - ✅ JWT认证中间件和全局错误处理
+  - ✅ RESTful API路由（40+个端点）
+  - ✅ 数据库初始化脚本，包含测试数据
+  - 📁 位置: `backend/` 目录
 - **后端设计** (2024-12-07): 创建了完整的后端设计文档 `docs/backend_design.md`，包括：
   - 13个数据表设计（用户、问题、回答、评论、标签、关注、点赞、收藏、浏览历史、轮播图等）
   - 8个API模块约40个RESTful端点设计
@@ -24,10 +32,26 @@ weapp-wechat-zhihu/
 ├── data/                   # 模拟数据
 ├── utils/                  # 工具函数
 ├── images/                 # 图片资源
-├── docs/                   # 文档目录 (新增)
+├── backend/                # 后端目录 (新增)
+│   ├── src/
+│   │   ├── config/         # 配置文件
+│   │   ├── models/         # Sequelize模型
+│   │   ├── controllers/    # 控制器
+│   │   ├── routes/         # 路由
+│   │   ├── middlewares/    # 中间件
+│   │   ├── utils/          # 工具函数
+│   │   ├── scripts/        # 脚本（数据库初始化等）
+│   │   └── app.js          # Express应用
+│   ├── database/           # SQLite数据库文件
+│   ├── .env                # 环境变量
+│   ├── package.json
+│   ├── server.js           # 入口文件
+│   └── README.md
+├── docs/                   # 文档目录
 │   ├── backend_design.md   # 后端设计文档
 │   └── database_schema.sql # 数据库建表脚本
 ├── app.js                  # 应用入口
 ├── app.json                # 应用配置
 └── app.wxss                # 全局样式
 ```
+
