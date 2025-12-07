@@ -163,15 +163,22 @@ class DiscoveryController {
                 }]
             });
 
-            const list = rows.map(f => ({
-                id: f.question.id,
-                title: f.question.title,
-                content: f.question.content,
-                user: f.question.user,
-                answer_count: f.question.answer_count,
-                follow_count: f.question.follow_count,
-                created_at: f.question.created_at
-            }));
+            const list = rows.map(f => {
+                const question = f.question;
+                const user = question.user;
+                return {
+                    question_id: question.id,
+                    answer_id: null,
+                    feed_source_id: user.id,
+                    feed_source_name: user.nickname,
+                    feed_source_txt: '提出了问题',
+                    feed_source_img: user.avatar_url,
+                    question: question.title,
+                    answer_ctnt: question.content ? question.content.substring(0, 100) + '...' : '',
+                    good_num: question.follow_count || 0,
+                    comment_num: question.answer_count || 0
+                };
+            });
 
             return Response.successWithPagination(res, list, count, page, limit);
         } catch (error) {
@@ -213,14 +220,23 @@ class DiscoveryController {
                 }]
             });
 
-            const list = rows.map(c => ({
-                id: c.answer.id,
-                question: c.answer.question,
-                user: c.answer.user,
-                content: c.answer.content.substring(0, 200) + '...',
-                like_count: c.answer.like_count,
-                created_at: c.answer.created_at
-            }));
+            const list = rows.map(c => {
+                const answer = c.answer;
+                const question = answer.question;
+                const user = answer.user;
+                return {
+                    question_id: question.id,
+                    answer_id: answer.id,
+                    feed_source_id: user.id,
+                    feed_source_name: user.nickname,
+                    feed_source_txt: '回答了问题',
+                    feed_source_img: user.avatar_url,
+                    question: question.title,
+                    answer_ctnt: answer.content.substring(0, 100) + '...',
+                    good_num: answer.like_count || 0,
+                    comment_num: answer.comment_count || 0
+                };
+            });
 
             return Response.successWithPagination(res, list, count, page, limit);
         } catch (error) {
@@ -255,13 +271,22 @@ class DiscoveryController {
                 }]
             });
 
-            const list = rows.map(h => ({
-                id: h.question.id,
-                title: h.question.title,
-                user: h.question.user,
-                answer_count: h.question.answer_count,
-                browsed_at: h.created_at
-            }));
+            const list = rows.map(h => {
+                const question = h.question;
+                const user = question.user;
+                return {
+                    question_id: question.id,
+                    answer_id: null,
+                    feed_source_id: user.id,
+                    feed_source_name: user.nickname,
+                    feed_source_txt: '浏览了问题',
+                    feed_source_img: user.avatar_url,
+                    question: question.title,
+                    answer_ctnt: question.content ? question.content.substring(0, 100) + '...' : '',
+                    good_num: question.follow_count || 0,
+                    comment_num: question.answer_count || 0
+                };
+            });
 
             return Response.successWithPagination(res, list, count, page, limit);
         } catch (error) {

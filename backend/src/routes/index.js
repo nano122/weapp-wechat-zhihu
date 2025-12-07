@@ -20,5 +20,6 @@ router.use('/auth', authRoutes);
 router.use('/questions', questionRoutes);
 router.use('/', answerRoutes); // 包含 /questions/:qid/answers 和 /answers/:id
 router.use('/discovery', discoveryRoutes);
+router.use('/users', require('./users'));
 
 module.exports = router;

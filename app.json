@@ -4,7 +4,10 @@
     "pages/discovery/discovery",
     "pages/more/more",
     "pages/answer/answer",
-    "pages/question/question"
+    "pages/question/question",
+    "pages/list/list",
+    "pages/search/search",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

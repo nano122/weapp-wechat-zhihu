@@ -259,10 +259,82 @@ class QuestionController {
                 ]
             });
 
-            return Response.successWithPagination(res, rows, count, page, limit);
+            // 转换格式
+            const list = rows.map(q => {
+                // 搜索结果目前只返回问题，没有带回答
+                return {
+                    question_id: q.id,
+                    answer_id: null,
+                    feed_source_id: q.user.id,
+                    feed_source_name: q.user.nickname,
+                    feed_source_txt: '提出了问题',
+                    feed_source_img: q.user.avatar_url,
+                    question: q.title,
+                    answer_ctnt: q.content ? q.content.substring(0, 100) + '...' : '',
+                    good_num: q.follow_count || 0,
+                    comment_num: q.answer_count || 0,
+                    tags: []
+                };
+            });
+
+            return Response.successWithPagination(res, list, count, page, limit);
         } catch (error) {
             console.error('搜索问题失败:', error);
             return Response.error(res, 5000, '搜索失败');
+        }
+    }
+
+    /**
+     * 获取用户的问题列表
+     * GET /api/users/:id/questions
+     */
+    static async getQuestionsByUser(req, res) {
+        try {
+            const { id } = req.params;
+            const { page = 1, limit = 10 } = req.query;
+            const offset = (page - 1) * limit;
+
+            const { count, rows } = await Question.findAndCountAll({
+                where: { user_id: id },
+                limit: parseInt(limit),
+                offset,
+                order: [['created_at', 'DESC']],
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['id', 'nickname', 'avatar_url']
+                    },
+                    {
+                        model: Tag,
+                        as: 'tags',
+                        attributes: ['id', 'name'],
+                        through: { attributes: [] }
+                    }
+                ]
+            });
+
+            // 转换为Feed格式
+            const list = rows.map(q => {
+                return {
+                    question_id: q.id,
+                    answer_id: null,
+                    feed_source_id: q.user.id,
+                    feed_source_name: q.user.nickname,
+                    feed_source_txt: '提出了问题',
+                    feed_source_img: q.user.avatar_url,
+                    question: q.title,
+                    answer_ctnt: q.content ? q.content.substring(0, 100) + '...' : '',
+                    good_num: q.follow_count || 0,
+                    comment_num: q.answer_count || 0,
+                    tags: q.tags.map(t => t.name)
+                };
+            });
+
+            return Response.successWithPagination(res, list, count, page, limit);
+        } catch (error) {
+            console.error('获取用户问题列表失败:', error);
+            return Response.error(res, 5000, '获取用户问题列表失败');
         }
     }
 }

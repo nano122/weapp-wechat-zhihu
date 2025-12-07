@@ -117,9 +117,8 @@ Page({
       this.handleLogin();
       return;
     }
-    wx.showToast({
-      title: '个人主页开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '../profile/profile'
     });
   },
 
@@ -129,9 +128,8 @@ Page({
       this.handleLogin();
       return;
     }
-    wx.showToast({
-      title: '我的关注开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '../list/list?type=following&title=我的关注'
     });
   },
 
@@ -141,9 +139,8 @@ Page({
       this.handleLogin();
       return;
     }
-    wx.showToast({
-      title: '我的收藏开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '../list/list?type=collections&title=我的收藏'
     });
   },
 
@@ -153,9 +150,8 @@ Page({
       this.handleLogin();
       return;
     }
-    wx.showToast({
-      title: '最近浏览开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '../list/list?type=history&title=最近浏览'
     });
   }
 })

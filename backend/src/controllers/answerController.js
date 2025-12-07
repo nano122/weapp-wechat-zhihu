@@ -321,6 +321,58 @@ class AnswerController {
             return Response.error(res, 5000, '操作失败');
         }
     }
+
+    /**
+     * 获取用户的回答列表
+     * GET /api/users/:id/answers
+     */
+    static async getAnswersByUser(req, res) {
+        try {
+            const { id } = req.params;
+            const { page = 1, limit = 10 } = req.query;
+            const offset = (page - 1) * limit;
+
+            const { count, rows } = await Answer.findAndCountAll({
+                where: { user_id: id },
+                limit: parseInt(limit),
+                offset,
+                order: [['created_at', 'DESC']],
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['id', 'nickname', 'avatar_url']
+                    },
+                    {
+                        model: Question,
+                        as: 'question',
+                        attributes: ['id', 'title']
+                    }
+                ]
+            });
+
+            // 转换为Feed格式
+            const list = rows.map(a => {
+                return {
+                    question_id: a.question.id,
+                    answer_id: a.id,
+                    feed_source_id: a.user.id,
+                    feed_source_name: a.user.nickname,
+                    feed_source_txt: '回答了问题',
+                    feed_source_img: a.user.avatar_url,
+                    question: a.question.title,
+                    answer_ctnt: a.content.substring(0, 100) + '...',
+                    good_num: a.like_count || 0,
+                    comment_num: a.comment_count || 0
+                };
+            });
+
+            return Response.successWithPagination(res, list, count, page, limit);
+        } catch (error) {
+            console.error('获取用户回答列表失败:', error);
+            return Response.error(res, 5000, '获取用户回答列表失败');
+        }
+    }
 }
 
 module.exports = AnswerController;

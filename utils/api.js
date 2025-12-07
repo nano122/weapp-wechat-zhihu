@@ -240,11 +240,39 @@ const userCenter = {
     }
 };
 
+/**
+ * 用户API
+ */
+const user = {
+    // 获取指定用户资料
+    getProfile(id) {
+        return request(`/users/${id}`);
+    },
+
+    // 获取我的资料
+    getMe() {
+        return request('/users/me', {
+            needAuth: true
+        });
+    },
+
+    // 获取用户提问
+    getQuestions(id, page = 1, limit = 10) {
+        return request(`/users/${id}/questions?page=${page}&limit=${limit}`);
+    },
+
+    // 获取用户回答
+    getAnswers(id, page = 1, limit = 10) {
+        return request(`/users/${id}/answers?page=${page}&limit=${limit}`);
+    }
+};
+
 module.exports = {
     request,
     auth,
     question,
     answer,
     discovery,
-    userCenter
+    userCenter,
+    user
 };

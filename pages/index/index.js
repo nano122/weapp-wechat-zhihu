@@ -12,6 +12,12 @@ Page({
     hasMore: true
   },
 
+  search: function () {
+    wx.navigateTo({
+      url: '../search/search'
+    });
+  },
+
   //事件处理函数
   bindItemTap: function (e) {
     const answerId = e.currentTarget.dataset.aid;

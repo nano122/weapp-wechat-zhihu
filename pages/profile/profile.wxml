@@ -1,0 +1,36 @@
+<view class="container">
+    <view class="profile-header">
+        <view class="avatar-container">
+            <image class="avatar" src="{{userInfo.avatar_url || '../../images/default_avatar.png'}}"></image>
+        </view>
+        <view class="info-container">
+            <view class="nickname">{{userInfo.nickname}}</view>
+            <view class="bio">{{userInfo.bio || '暂无个人简介'}}</view>
+        </view>
+    </view>
+
+    <view class="stats-container flex-wrp">
+        <view class="stat-item flex-item">
+            <view class="stat-num">{{userInfo.stats.question_count || 0}}</view>
+            <view class="stat-label">提问</view>
+        </view>
+        <view class="stat-item flex-item">
+            <view class="stat-num">{{userInfo.stats.answer_count || 0}}</view>
+            <view class="stat-label">回答</view>
+        </view>
+        <view class="stat-item flex-item">
+            <view class="stat-num">{{userInfo.stats.following_question_count || 0}}</view>
+            <view class="stat-label">关注</view>
+        </view>
+        <view class="stat-item flex-item">
+            <view class="stat-num">{{userInfo.stats.collection_count || 0}}</view>
+            <view class="stat-label">收藏</view>
+        </view>
+    </view>
+
+    <view class="section-title">动态</view>
+    <!-- 这里可以复用 feed list, 但目前先简单显示暂无 -->
+    <view class="empty-feed">
+        <text>暂无动态</text>
+    </view>
+</view>
