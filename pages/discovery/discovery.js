@@ -1,31 +1,38 @@
 //discovery.js
 var util = require('../../utils/util.js')
+var api = require('../../utils/api.js')
+
 Page({
   data: {
     navTab: ["推荐", "热门", "收藏"],
     currentNavtab: "0",
-    imgUrls: [
-      '../../images/24213.jpg',
-      '../../images/24280.jpg',
-      '../../images/1444983318907-_DSC1826.jpg'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
     feed: [],
-    feed_length: 0
+    feed_length: 0,
+    page: 1,
+    hasMore: true
   },
+
   onLoad: function () {
     console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
+    this.loadBanners();
     this.refresh();
   },
+
   switchTab: function (e) {
+    const idx = e.currentTarget.dataset.idx;
     this.setData({
-      currentNavtab: e.currentTarget.dataset.idx
+      currentNavtab: idx,
+      page: 1,
+      feed: []
     });
+    this.loadTabData(idx);
   },
 
   bindItemTap: function () {
@@ -33,58 +40,111 @@ Page({
       url: '../answer/answer'
     })
   },
-  bindQueTap: function () {
+
+  bindQueTap: function (e) {
+    const questionId = e.currentTarget.dataset.qid;
     wx.navigateTo({
-      url: '../question/question'
+      url: '../question/question?id=' + questionId
     })
   },
+
   upper: function () {
     wx.showNavigationBarLoading()
     this.refresh();
     console.log("upper");
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   },
+
   lower: function (e) {
+    if (!this.data.hasMore) {
+      wx.showToast({
+        title: '没有更多了',
+        icon: 'none'
+      });
+      return;
+    }
     wx.showNavigationBarLoading();
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
     console.log("lower")
   },
-  //scroll: function (e) {
-  //  console.log("scroll")
-  //},
 
-  //网络请求数据, 实现刷新
-  refresh0: function () {
-    var index_api = '';
-    util.getData(index_api)
-      .then(function (data) {
-        //this.setData({
-        //
-        //});
-        console.log(data);
+  // 加载轮播图
+  loadBanners: function () {
+    var that = this;
+    api.discovery.getBanners()
+      .then(function (banners) {
+        console.log('获取轮播图成功:', banners);
+        that.setData({
+          imgUrls: banners.map(b => b.image_url)
+        });
+      })
+      .catch(function (err) {
+        console.error('获取轮播图失败:', err);
       });
   },
 
-  //使用本地 fake 数据实现刷新效果
-  refresh: function () {
-    var feed = util.getDiscovery();
-    console.log("loaddata");
-    var feed_data = feed.data;
-    this.setData({
-      feed: feed_data,
-      feed_length: feed_data.length
-    });
+  // 加载Tab数据
+  loadTabData: function (tabIdx) {
+    var that = this;
+    var apiCall;
+
+    if (tabIdx == "0") {
+      // 推荐
+      apiCall = api.discovery.getRecommend(this.data.page, 10);
+    } else if (tabIdx == "1") {
+      // 热门
+      apiCall = api.discovery.getHot(this.data.page, 10);
+    } else {
+      // 收藏（需要登录）
+      apiCall = api.userCenter.getMyCollections(this.data.page, 10);
+    }
+
+    apiCall.then(function (data) {
+      console.log('获取Tab数据成功:', data);
+      that.setData({
+        feed: data.list,
+        feed_length: data.list.length,
+        hasMore: data.has_more
+      });
+    })
+      .catch(function (err) {
+        console.error('获取Tab数据失败:', err);
+      });
   },
 
-  //使用本地 fake 数据实现继续加载效果
+  // 刷新
+  refresh: function () {
+    var that = this;
+    that.setData({ page: 1 });
+    this.loadTabData(this.data.currentNavtab);
+  },
+
+  // 加载更多
   nextLoad: function () {
-    var next = util.discoveryNext();
-    console.log("continueload");
-    var next_data = next.data;
-    this.setData({
-      feed: this.data.feed.concat(next_data),
-      feed_length: this.data.feed_length + next_data.length
-    });
+    var that = this;
+    var nextPage = that.data.page + 1;
+    var apiCall;
+
+    if (this.data.currentNavtab == "0") {
+      apiCall = api.discovery.getRecommend(nextPage, 10);
+    } else if (this.data.currentNavtab == "1") {
+      apiCall = api.discovery.getHot(nextPage, 10);
+    } else {
+      apiCall = api.userCenter.getMyCollections(nextPage, 10);
+    }
+
+    apiCall.then(function (data) {
+      console.log('加载更多成功:', data);
+      that.setData({
+        feed: that.data.feed.concat(data.list),
+        feed_length: that.data.feed_length + data.list.length,
+        page: nextPage,
+        hasMore: data.has_more
+      });
+    })
+      .catch(function (err) {
+        console.error('加载更多失败:', err);
+      });
   }
 });
