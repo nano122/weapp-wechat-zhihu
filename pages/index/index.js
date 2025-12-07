@@ -13,10 +13,13 @@ Page({
   },
 
   //事件处理函数
-  bindItemTap: function () {
-    wx.navigateTo({
-      url: '../answer/answer'
-    })
+  bindItemTap: function (e) {
+    const answerId = e.currentTarget.dataset.aid;
+    if (answerId) {
+      wx.navigateTo({
+        url: '../answer/answer?id=' + answerId
+      })
+    }
   },
 
   bindQueTap: function (e) {

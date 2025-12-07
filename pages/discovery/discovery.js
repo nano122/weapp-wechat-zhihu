@@ -35,10 +35,13 @@ Page({
     this.loadTabData(idx);
   },
 
-  bindItemTap: function () {
-    wx.navigateTo({
-      url: '../answer/answer'
-    })
+  bindItemTap: function (e) {
+    const answerId = e.currentTarget.dataset.aid;
+    if (answerId) {
+      wx.navigateTo({
+        url: '../answer/answer?id=' + answerId
+      })
+    }
   },
 
   bindQueTap: function (e) {
