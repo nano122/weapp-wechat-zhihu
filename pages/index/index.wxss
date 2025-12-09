@@ -1,41 +1,60 @@
 /**index.wxss**/
 
 .container{
-  height: 1500rpx;
+  height: 100%;
 }
 .container .search{
-  width: 735rpx;
-  height: 65rpx;
-  padding: 12.5rpx 0 12.5rpx 15rpx;
-  background: #2A8CE5;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.03);
 }
 .container .search-left{
-  flex: 8;
-  background: #4EA3E7;
+  flex: 1;
+  background: #f6f6f6;
   text-align: left;
+  border-radius: 35rpx; /* Pill shape */
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  height: 70rpx;
 }
 .container .search-left input{
   display: inline-block;
-  height: 65rpx;
-  font-size: 26rpx;
+  height: 70rpx;
+  font-size: 28rpx;
+  width: 100%;
+  color: #333;
 }
 .search-placeholder{
-  color: #8CCEFD;
-  line-height: 20rpx;
+  color: #999;
+  line-height: 70rpx;
 }
 .container .search .search-left image{
   display: inline-block;
   width: 35rpx;
   height: 35rpx;
-  padding: 15rpx 15rpx 15rpx 20rpx;
+  padding: 0 15rpx 0 0;
+  opacity: 0.5; /* Make the search icon subtle */
 }
 .container .search .search-right{
-  flex: 1;
+  flex: none; /* Prevent flex-grow from inheriting global flex-item style */
+  width: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .container .search .search-right image{
   width: 45rpx;
   height: 45rpx;
   padding: 10rpx;
+  filter: invert(0.6); /* Make the white lighting icon dark gray */
 }
 
 .container{

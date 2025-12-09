@@ -11,9 +11,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#0068C4",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "知乎",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "tabBar": {

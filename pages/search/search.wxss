@@ -1,48 +1,58 @@
 .search-header {
-  padding: 20rpx;
-  background: #2A8CE5;
+  padding: 20rpx 30rpx;
+  background: #ffffff;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1rpx solid #f6f6f6;
 }
 
 .search-bar {
   flex: 1;
-  background: #4EA3E7;
-  border-radius: 8rpx;
-  padding: 10rpx;
+  background: #f6f6f6;
+  border-radius: 35rpx; /* Pill shape */
+  padding: 0 20rpx;
+  height: 70rpx;
   display: flex;
   align-items: center;
 }
 
 .search-bar image {
-  width: 30rpx;
-  height: 30rpx;
-  margin-right: 10rpx;
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 15rpx;
+  opacity: 0.5;
 }
 
 .search-bar input {
   flex: 1;
-  color: #fff;
+  color: #333;
   font-size: 28rpx;
+  height: 70rpx;
 }
 
 .search-placeholder {
-  color: #8CCEFD;
+  color: #999;
 }
 
 .search-cancel {
-  color: #fff;
+  color: #0066ff; /* Brand Blue for Action */
   font-size: 30rpx;
   margin-left: 20rpx;
+  font-weight: 500;
 }
 
 .container {
-  height: calc(100vh - 100rpx);
-  background: #F0F4F3;
+  height: calc(100vh - 110rpx); /* Adjusted for header height */
+  background: #f6f6f6;
 }
 
 .no-result {
   text-align: center;
-  margin-top: 100rpx;
+  margin-top: 200rpx;
   color: #999;
+  font-size: 28rpx;
 }
+
