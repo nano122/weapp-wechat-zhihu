@@ -6,24 +6,25 @@
     </view>
     
     <block wx:if="{{answer}}">
-        <!-- 问题标题 -->
-        <view class="question" bindtap="toQuestion">
-            <text class="question-title">{{answer.question.title}}</text>
+
+        <!-- 标题区域 -->
+        <view class="answer-header">
+            <text class="answer-title" bindtap="toQuestion">{{answer.question.title}}</text>
+            <view class="answer-meta">
+                <text>知乎 · {{answer.question.answer_count || 94}} 个回答 · {{answer.question.follow_count || 177}} 人关注</text>
+            </view>
         </view>
-        
+
         <!-- 回答者信息 -->
         <view class="answerer-wrp">
-            <view class="bg-half"></view>
-            <view class="answerer flex-wrp">
-                <view class="avatar flex-item">
+            <view class="answerer">
+                <view class="avatar">
                     <image src="{{answer.user.avatar_url}}"></image>
                 </view>
-                <view class="answerer-info flex-item">
+                <view class="answerer-info">
                     <text class="answerer-name">{{answer.user.nickname}}</text>
-                    <text class="answerer-des">{{answer.user.bio}}</text>
-                </view>
-                <view class="follow flex-item">
-                    <text>+ 关注</text>
+                    <text class="answerer-tagline">{{answer.user.bio || '暂无个人简介'}}</text>
+                    <text class="answerer-agreed">{{answer.like_count}} 人赞同了该回答</text>
                 </view>
             </view>
         </view>
@@ -33,32 +34,37 @@
             <text>{{answer.content}}</text>
         </view>
 
+        <!-- 悬浮按钮 -->
+        <view class="floating-next">
+            <text>Next\n下一个</text>
+        </view>
+
         <!-- 底部操作栏 -->
         <view class="answer-footer flex-wrp">
-            <view class="good flex-item" bindtap="toggleLike">
-                <view class="good-bad">
-                    <image src="../../images/good-bad.png"></image>
+            <view class="vote-pill flex-item">
+                <view class="vote-up expanded">
+                    <text class="triangle-up">▲</text>
+                    <text class="vote-count">赞同 {{answer.like_count}}</text>
                 </view>
-                <view class="good-num {{isLiked ? 'liked' : ''}}">{{answer.like_count}}</view>
+                <view class="vote-down">
+                    <text class="triangle-down">▼</text>
+                </view>
             </view>
+            
             <view class="operation-wrp flex-item">
-                <view class="operation flex-wrp flex-tab">
-                    <view class="operation-btn flex-item" bindtap="reportNotHelpful">
-                        <image src="../../images/flag.png"></image>
-                        <text>没有帮助</text>
-                    </view>
-                    <view class="operation-btn flex-item {{isThanked ? 'active' : ''}}" bindtap="toggleThank">
-                        <image src="../../images/heart2.png"></image>
-                        <text>{{isThanked ? '已感谢' : '感谢'}}</text>
-                    </view>
-                    <view class="operation-btn flex-item {{isCollected ? 'active' : ''}}" bindtap="toggleCollect">
-                        <image src="../../images/star2.png"></image>
-                        <text>{{isCollected ? '已收藏' : '收藏'}}</text>
-                    </view>
-                    <view class="operation-btn flex-item" bindtap="viewComments">
-                        <image src="../../images/comment.png"></image>
-                        <text>{{answer.comment_count}}</text>
-                    </view>
+                <view class="operation-btn" bindtap="toggleCollect">
+                    <image src="../../images/star2.png"></image>
+                    <text wx:if="{{answer.collect_count > 0}}">{{answer.collect_count}}</text>
+                </view>
+                <view class="operation-btn" bindtap="toggleThank">
+                    <image src="../../images/heart2.png"></image>
+                </view>
+                <view class="operation-btn" bindtap="viewComments">
+                    <image src="../../images/comment.png"></image>
+                    <text>{{answer.comment_count}}</text>
+                </view>
+                 <view class="operation-btn">
+                    <image src="../../images/share.png" style="opacity: 0.5;"></image> <!-- Placeholder for share -->
                 </view>
             </view>
         </view>
