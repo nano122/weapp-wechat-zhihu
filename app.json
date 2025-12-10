@@ -7,7 +7,8 @@
     "pages/question/question",
     "pages/list/list",
     "pages/search/search",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/edit_profile/edit_profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -256,6 +256,15 @@ const user = {
         });
     },
 
+    // 更新我的资料
+    updateMe(data) {
+        return request('/users/me', {
+            method: 'PUT',
+            data: data,
+            needAuth: true
+        });
+    },
+
     // 获取用户提问
     getQuestions(id, page = 1, limit = 10) {
         return request(`/users/${id}/questions?page=${page}&limit=${limit}`);

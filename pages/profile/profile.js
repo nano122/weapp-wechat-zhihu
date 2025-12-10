@@ -36,6 +36,7 @@ Page({
         api.user.getMe().then(function (data) {
             that.setData({
                 userInfo: data,
+                isOwnProfile: true,
                 loading: false
             });
             wx.setNavigationBarTitle({
@@ -44,6 +45,12 @@ Page({
         }).catch(function (err) {
             console.error('Failed to load my profile', err);
             wx.showToast({ title: '加载失败', icon: 'none' });
+        });
+    },
+
+    editProfile: function () {
+        wx.navigateTo({
+            url: '../edit_profile/edit_profile'
         });
     }
 })

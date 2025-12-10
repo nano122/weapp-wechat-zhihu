@@ -6,6 +6,9 @@
         <view class="info-container">
             <view class="nickname">{{userInfo.nickname}}</view>
             <view class="bio">{{userInfo.bio || '暂无个人简介'}}</view>
+            <view class="actions" wx:if="{{isOwnProfile}}">
+                <view class="edit-btn" bindtap="editProfile">编辑资料</view>
+            </view>
         </view>
     </view>
 

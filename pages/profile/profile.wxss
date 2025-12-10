@@ -76,3 +76,15 @@
     color: #ccc;
     font-size: 28rpx;
 }
+
+.actions {
+  margin-top: 15rpx;
+}
+
+.edit-btn {
+  font-size: 24rpx;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 5rpx 20rpx;
+  border-radius: 30rpx;
+  background: rgba(0, 0, 0, 0.1);
+}

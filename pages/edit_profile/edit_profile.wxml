@@ -1,0 +1,20 @@
+<view class="container">
+  <form bindsubmit="onSubmit">
+    <view class="form-group avatar-section">
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+        <view class="edit-icon">📷</view>
+      </button>
+      <text class="tip">点击修改头像</text>
+    </view>
+
+    <view class="form-group input-section">
+      <view class="label">昵称</view>
+      <input type="nickname" name="nickname" class="nickname-input" placeholder="请输入昵称" value="{{nickname}}"/>
+    </view>
+
+    <view class="btn-area">
+      <button form-type="submit" class="submit-btn" type="primary">保存</button>
+    </view>
+  </form>
+</view>
