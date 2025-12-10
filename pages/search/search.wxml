@@ -11,12 +11,12 @@
         <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
             <view class="feed-item">
                 <view class="feed-source">
-                    <a class="">
+                    <view class="avatar-flex">
                         <view class="avatar">
                             <image src="{{item.feed_source_img}}"></image>
                         </view>
                         <text>{{item.feed_source_name}}{{item.feed_source_txt}}</text>
-                    </a>
+                    </view>
                 </view>
                 <view class="feed-content">
                     <view class="question" qid="{{item.question_id}}" data-qid="{{item.question_id}}" bindtap="bindQueTap">

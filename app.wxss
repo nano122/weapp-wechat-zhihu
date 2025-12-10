@@ -35,6 +35,10 @@
   align-items: center;
   margin-bottom: 10rpx;
 }
+.container .feed-item .feed-source .avatar-flex {
+    display: flex;
+    align-items: center;
+}
 .container .feed-item .feed-source .avatar {
     margin-right: 15rpx;
 }
