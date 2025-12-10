@@ -166,3 +166,27 @@
     border: 1rpx solid #eee;
 }
 
+/* Active States */
+.vote-pill.liked {
+    background: #0084ff; /* Active Blue */
+    color: #ffffff;
+    border: 1rpx solid #0084ff;
+}
+.vote-pill.liked .vote-up {
+    border-right: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+.vote-pill.liked .triangle-up,
+.vote-pill.liked .triangle-down {
+     color: #ffffff;
+}
+
+.operation-btn image.thanked {
+    /* Filter to make it red */
+    filter: invert(27%) sepia(91%) saturate(5833%) hue-rotate(352deg) brightness(96%) contrast(123%);
+}
+
+.operation-btn image.collected {
+    /* Filter to make it yellow (#FBC02D or similar) */
+    filter: invert(78%) sepia(35%) saturate(3015%) hue-rotate(1deg) brightness(101%) contrast(104%);
+}
+

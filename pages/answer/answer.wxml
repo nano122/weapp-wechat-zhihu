@@ -41,8 +41,8 @@
 
         <!-- 底部操作栏 -->
         <view class="answer-footer flex-wrp">
-            <view class="vote-pill flex-item">
-                <view class="vote-up expanded">
+            <view class="vote-pill flex-item {{isLiked ? 'liked' : ''}}">
+                <view class="vote-up expanded" bindtap="toggleLike">
                     <text class="triangle-up">▲</text>
                     <text class="vote-count">赞同 {{answer.like_count}}</text>
                 </view>
@@ -53,11 +53,11 @@
             
             <view class="operation-wrp flex-item">
                 <view class="operation-btn" bindtap="toggleCollect">
-                    <image src="../../images/star2.png"></image>
+                    <image src="../../images/{{isCollected ? 'star.png' : 'star2.png'}}" class="{{isCollected ? 'collected' : ''}}"></image>
                     <text wx:if="{{answer.collect_count > 0}}">{{answer.collect_count}}</text>
                 </view>
                 <view class="operation-btn" bindtap="toggleThank">
-                    <image src="../../images/heart2.png"></image>
+                    <image src="../../images/heart2.png" class="{{isThanked ? 'thanked' : ''}}"></image>
                 </view>
                 <view class="operation-btn" bindtap="viewComments">
                     <image src="../../images/comment.png"></image>
