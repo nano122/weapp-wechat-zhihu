@@ -41,6 +41,11 @@ const Answer = sequelize.define('Answer', {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         comment: '收藏数'
+    },
+    is_hot: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        comment: '热门权重（0=非热门，数值越大排序越靠前）'
     }
 }, {
     tableName: 'answers',
@@ -51,6 +56,7 @@ const Answer = sequelize.define('Answer', {
         { fields: ['question_id'] },
         { fields: ['user_id'] },
         { fields: ['like_count'] },
+        { fields: ['is_hot'] },
         { fields: ['created_at'] }
     ]
 });

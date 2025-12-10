@@ -48,7 +48,7 @@ class DiscoveryController {
                         model: Answer,
                         as: 'answers',
                         limit: 1,
-                        order: [['like_count', 'DESC']],
+                        order: [['is_hot', 'DESC'], ['like_count', 'DESC']],
                         include: [{
                             model: User,
                             as: 'user',
@@ -104,7 +104,7 @@ class DiscoveryController {
                         model: Answer,
                         as: 'answers',
                         limit: 1,
-                        order: [['like_count', 'DESC']],
+                        order: [['is_hot', 'DESC'], ['like_count', 'DESC']],
                         include: [{
                             model: User,
                             as: 'user',

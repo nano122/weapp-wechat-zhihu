@@ -17,9 +17,12 @@ class AnswerController {
             const userId = req.user ? req.user.id : null;
 
             // 排序方式
-            let order = [['like_count', 'DESC']];
+            let order;
             if (sort === 'latest') {
                 order = [['created_at', 'DESC']];
+            } else {
+                // 热门排序：优先按热门权重，再按点赞数
+                order = [['is_hot', 'DESC'], ['like_count', 'DESC']];
             }
 
             const { count, rows } = await Answer.findAndCountAll({

@@ -1,6 +1,13 @@
 # 项目概览
 
 ## 最近更改
+- **热门回答功能** (2025-12-10):
+  - ✅ 在 `answers` 表添加 `is_hot` 字段（INTEGER 类型），用于标记和排序热门回答
+  - ✅ `is_hot = 0` 表示非热门回答，数值越大排序优先级越高
+  - ✅ 更新 `answerController.js`：热门排序时优先按 `is_hot` 降序，再按 `like_count` 降序
+  - ✅ 更新 `discoveryController.js`：推荐和热门内容优先展示高权重回答
+  - ✅ 添加数据库索引 `idx_is_hot` 优化查询性能
+  - ✅ 创建数据库迁移脚本 `database/migrations/migrate_add_is_hot.js`
 - **用户信息完善** (2025-12-10):
   - ✅ 新增 `pages/edit_profile/` 页面，支持微信头像选择和昵称填写功能
   - ✅ 更新 `pages/profile/` 个人主页，增加"编辑资料"入口（仅对自己显示）
